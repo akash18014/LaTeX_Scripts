@@ -1,0 +1,31 @@
+\documentclass[a4paper ,11 pt]{article}
+\usepackage{tikz}
+\usetikzlibrary{er}
+\tikzset{total/.style={double distance=1.5pt}}
+\tikzset{multi attribute/.style={attribute,double distance=1.5pt}}
+\newcommand{\key}[1]{\underline{#1}}
+\title{\Huge \textbf{Hello Code}}
+\author{\LARGE \emph{Akash Kishore}}
+
+\begin{document}
+\maketitle
+
+
+\begin{tikzpicture}[node distance=3cm]
+\node[entity] (person) {Person};
+\node[attribute] (pid) [left of=person] {\key {ID}} edge (person) ;
+\node[attribute] (name) [above left of=person] {Name} edge (person) ;
+\node[multi attribute] (phone) [above of=person] {Phone} edge (person) ;
+\node[attribute] (address) [above right of=person] {Address} edge (person) ;
+\node[attribute] (street) [above right of=address] {Street} edge (address) ;
+\node[attribute] (city) [right of=address] {City} edge (address) ;
+%\node[derived attribute] (age) [right of=person] {Age} edge (person) ;
+\node[relationship] (uses) [below of=person] {Uses} edge[total] (person) ;
+\node[entity] (tool) [below of=uses] {Tool} edge (uses) ;
+%\node[attribute] (tid) [left of=tool] {\key {ID}} edge (tool) ;
+%\node[attribute] (tname) [right of=tool] {Name} edge (tool) ;
+
+\end{tikzpicture}
+
+
+\end{document}

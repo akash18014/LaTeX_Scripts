@@ -1,0 +1,454 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[portrait,margin=0.75in]{geometry}
+\usetikzlibrary{er,shapes,positioning,calc,arrows.meta}
+\colorlet{lightgray}{gray!30}
+\usepackage{xcolor}
+\usepackage[pdfusetitle]{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={blue!50!black},
+    citecolor={red!50!black},
+    urlcolor={red!80!black}
+}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[all]{hypcap}
+
+\title{\Huge \textbf{UCS1412 Database Lab} \\ \huge \textbf{Assignment 9}}
+\author{\LARGE \textit{\textbf{Akash Kishore}}}
+\date{\LARGE \textbf{18 5001 014}}
+
+\tikzset{>={Latex[length=2mm, width=1.5mm]}}
+\tikzset{multi attribute/.style={attribute,double distance=2pt}}
+\tikzset{derived attribute/.style={attribute,dashed}}
+\tikzset{total/.style={double distance=2pt}}
+\tikzset{every entity/.style={draw=red,fill=red!10}}
+\tikzset{every attribute/.style={draw=blue,fill=blue!10}}
+\tikzset{every relationship/.style={draw=cyan,fill=cyan!10}}
+
+
+\renewcommand\thesection{\Alph{section}}
+%\renewcommand\thesubsection{\thesection.\roman{subsection}}
+
+\begin{document}
+\maketitle
+%\tableofcontents
+%\vspace{0.5in}
+\section{Database Design Using Normal Forms}
+
+
+%COMPANY RELATION FIGURE
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[relation/.style={rectangle split, rectangle split parts=#1, rectangle split part align=base, draw, anchor=center, align=center, text height=3mm, text centered}]\hspace*{-0.3cm}
+
+
+\node (companytitle) {\textbf{COMPANY}};
+
+\node [relation=13, rectangle split horizontal, rectangle split part fill={lightgray!50}, anchor=north west, below=0.67cm of companytitle.west, anchor=west] (company)
+{\underline{EmpID}%
+\nodepart{two} Name
+\nodepart{three} Address
+\nodepart{four} BDate
+\nodepart{five} Sex
+\nodepart{six} Salary
+\nodepart{seven} DNo
+\nodepart{eight} Dname
+\nodepart{nine} MgrID
+\nodepart{ten} \underline{PNo}
+\nodepart{eleven} PName
+\nodepart{twelve} PDNo
+\nodepart{thirteen} Hrs};
+
+\node [below left=2cm of company.west, anchor=south west] (fd1) {\textbf{FD 1}};
+\node [below=1.0cm of fd1.west, anchor=west] (fd2) {\textbf{FD 2}};
+\node [below=1.0cm of fd2.west, anchor=west] (fd3) {\textbf{FD 3}};
+\node [below=1.0cm of fd3.west, anchor=west] (fd4) {\textbf{FD 4}};
+
+%FD1
+\draw[->] (company.one south) -- ++(0,-0.9cm) -| (company.two south);
+\draw[->] (company.one south) -- ++(0,-0.9cm) -| (company.three south);
+\draw[->] (company.one south) -- ++(0,-0.9cm) -| (company.four south);
+\draw[->] (company.one south) -- ++(0,-0.9cm) -| (company.five south);
+\draw[->] (company.one south) -- ++(0,-0.9cm) -| (company.six south);
+\draw[->] (company.one south) -- ++(0,-0.9cm) -| (company.seven south);
+
+%FD2
+\draw[->] ($(company.seven south) + (0.0,-1cm)$) -- ++(0,-0.9) -| (company.eight south);
+\draw[->] ($(company.seven south) + (0.0,-1cm)$) -- ++(0,-0.9) -| (company.nine south);
+
+%FD3
+\draw[->] ($(company.ten south) + (0.0,0cm)$) -- ++(0,-2.9cm) -| (company.eleven south);
+\draw[->] ($(company.ten south) + (0.0,0cm)$) -- ++(0,-2.9cm) -| (company.twelve south);
+
+%FD4
+\draw[->] ($(company.one south) + (0.0,-1cm)$) -- ++(0,-2.9cm) -| (company.thirteen south);
+\draw[->] ($(company.ten south) + (0.0,-3cm)$) -- ++(0,-0.9cm) -| (company.thirteen south);
+
+\end{tikzpicture}
+\caption{Company Relation}
+\label{fig:diag1}
+\end{figure}
+
+
+\subsection{Identifying Primary Key}
+\begin{proof}
+Let $K$ be set of attributes which form the primary key and $R$ be the set of of attributes in the \textbf{COMPANY} relation.
+\newline
+\begin{math}
+	\\
+  	K := R \\
+  	A:=\{Name,Address,BDate,Sex,Salary,DName,MgrID,PName,PDNo,Hrs\} \\
+	(K-A)^+ := R  \;\;\;\;\;\;\;\text{(Directly inferred from FDs)}\\
+    \therefore K := K-A\\
+    \\
+    Now, K= \{EmpID,DNo,PNo\} \\ 
+    \text{Dno can be removed from K as } EmpID \rightarrow DNo  \;\;\;\;\text{(From FD1)}\\
+    \therefore K=\{EmpID,PNo\} \\
+    (EmpID,PNo)^+ = \{Name,Address,BDate,Sex,Salary,DNo,DName,MgrID,PName,PDNo,Hrs\}\\
+    i.e \; K^+ = R \\
+    (EmpID)^+ = \{Name,Address,BDate,Sex,Salary,DNo,DName,MgrID\} \\
+    (PNo)^+ = \{PName,PDNo\} \\
+    \text{Since neither attribute's closure with respect to the given set of FDs can fully determine all } \\
+    \text{attributes, neither of them can be removed.} \\
+    \therefore K \text{ represents the primary key of COMPANY}\\
+    \therefore \text{\textbf{Primary Key =  \{\emph{EmpID,PNo}\}}}\\
+  \end{math}
+\end{proof}
+
+
+\subsection{ 1\textsuperscript{st} Normal Form}
+The relation does not contain any multivalued attributes or nested relations and hence \underline{is in 1NF.}
+
+\subsection{2\textsuperscript{nd} Normal Form}
+Functional Dependencies 1 and 3 are only partial dependencies. Hence the relation \underline{is not in 2NF}. Therefore the relation is decomposed into 3 sub-relations.
+
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[relation/.style={rectangle split, rectangle split parts=#1, rectangle split part align=base, draw, anchor=center, align=center, text height=3mm, text centered}]\hspace*{-0.3cm}
+
+
+\node (employeetitle) {\textbf{EMPLOYEE}};
+
+\node [relation=9, rectangle split horizontal, rectangle split part fill={lightgray!50}, anchor=north west, below=0.67cm of employeetitle.west, anchor=west] (employee)
+{\underline{EmpID}%
+\nodepart{two} Name
+\nodepart{three} Address
+\nodepart{four} BDate
+\nodepart{five} Sex
+\nodepart{six} Salary
+\nodepart{seven} DNo
+\nodepart{eight} Dname
+\nodepart{nine} MgrID};
+
+%\nodepart{ten} \underline{PNo}
+%\nodepart{eleven} PName
+%\nodepart{twelve} PDNo
+%\nodepart{thirteen} Hrs};
+
+
+%FD1
+\draw[->] (employee.one south) -- ++(0,-0.7cm) -| (employee.two south);
+\draw[->] (employee.one south) -- ++(0,-0.7cm) -| (employee.three south);
+\draw[->] (employee.one south) -- ++(0,-0.7cm) -| (employee.four south);
+\draw[->] (employee.one south) -- ++(0,-0.7cm) -| (employee.five south);
+\draw[->] (employee.one south) -- ++(0,-0.7cm) -| (employee.six south);
+\draw[->] (employee.one south) -- ++(0,-0.7cm) -| (employee.seven south);
+
+%FD2
+\draw[->] ($(employee.seven south) + (0.0,-0.8cm)$) -- ++(0,-0.7) -| (employee.eight south);
+\draw[->] ($(employee.seven south) + (0.0,-0.8cm)$) -- ++(0,-0.7) -| (employee.nine south);
+
+\node [below=2.3cm of employee.west, anchor=west] (projecttitle) {\textbf{PROJECT}};
+
+
+\node[relation=3, rectangle split horizontal, rectangle split part fill={lightgray!50}, below=0.67cm of projecttitle.west, anchor=west] (project)
+{\underline{PNo}
+\nodepart{two} PName
+\nodepart{three} PDNo};
+
+\draw[->] (project.one south) -- ++(0,-0.7cm) -| (project.two south);
+\draw[->] (project.one south) -- ++(0,-0.7cm) -| (project.three south);
+
+
+\node [below=2cm of project.west, anchor=west] (worksontitle) {\textbf{WORKS\_ON}};
+
+
+\node[relation=3, rectangle split horizontal, rectangle split part fill={lightgray!50}, below=0.67cm of worksontitle.west, anchor=west] (workson)
+{\underline{EmpID}
+\nodepart{two} \underline{PNo}
+\nodepart{three} Hrs};
+
+\draw[->] (workson.one south) -- ++(0,-0.7cm) -| (workson.two south);
+\draw[->] (workson.one south) -- ++(0,-0.7cm) -| (workson.three south);
+
+
+
+\end{tikzpicture}
+\caption{Decomposition after 2NF}
+\label{fig:diag2}
+\end{figure}
+
+
+
+
+\subsection{3\textsuperscript{rd} Normal Form}
+Functional Dependencies 1 and 2 are transitive and hence the table \underline{is not in 3NF}. Therefore the \textbf{EMPLOYEE} relation is further decomposed into 2 sub-relations.
+
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[relation/.style={rectangle split, rectangle split parts=#1, rectangle split part align=base, draw, anchor=center, align=center, text height=3mm, text centered}]\hspace*{-0.3cm}
+
+
+\node (employeetitle) {\textbf{EMPLOYEE}};
+
+\node [relation=7, rectangle split horizontal, rectangle split part fill={lightgray!50}, anchor=north west, below=0.67cm of employeetitle.west, anchor=west] (employee)
+{\underline{EmpID}%
+\nodepart{two} Name
+\nodepart{three} Address
+\nodepart{four} BDate
+\nodepart{five} Sex
+\nodepart{six} Salary
+\nodepart{seven} DNo};
+
+%FD1
+\draw[->] (employee.one south) -- ++(0,-0.7cm) -| (employee.two south);
+\draw[->] (employee.one south) -- ++(0,-0.7cm) -| (employee.three south);
+\draw[->] (employee.one south) -- ++(0,-0.7cm) -| (employee.four south);
+\draw[->] (employee.one south) -- ++(0,-0.7cm) -| (employee.five south);
+\draw[->] (employee.one south) -- ++(0,-0.7cm) -| (employee.six south);
+\draw[->] (employee.one south) -- ++(0,-0.7cm) -| (employee.seven south);
+
+\node [below=2.3cm of employee.west, anchor=west] (projecttitle) {\textbf{PROJECT}};
+
+
+\node[relation=3, rectangle split horizontal, rectangle split part fill={lightgray!50}, below=0.67cm of projecttitle.west, anchor=west] (project)
+{\underline{PNo}
+\nodepart{two} PName
+\nodepart{three} PDNo};
+
+\draw[->] (project.one south) -- ++(0,-0.7cm) -| (project.two south);
+\draw[->] (project.one south) -- ++(0,-0.7cm) -| (project.three south);
+
+
+\node [right=2in of projecttitle.east, anchor=west] (departmenttitle) {\textbf{DEPARTMENT}};
+
+\node[relation=3, rectangle split horizontal, rectangle split part fill={lightgray!50}, below=0.67cm of departmenttitle.west, anchor=west] (department)
+{\underline{DNo}
+\nodepart{two} DName
+\nodepart{three} MgrID};
+
+\draw[->] (department.one south) -- ++(0,-0.7cm) -| (department.two south);
+\draw[->] (department.one south) -- ++(0,-0.7cm) -| (department.three south);
+
+
+
+\node [below=2cm of project.west, anchor=west] (worksontitle) {\textbf{WORKS\_ON}};
+
+
+\node[relation=3, rectangle split horizontal, rectangle split part fill={lightgray!50}, below=0.67cm of worksontitle.west, anchor=west] (workson)
+{\underline{EmpID}
+\nodepart{two} \underline{PNo}
+\nodepart{three} Hrs};
+
+\draw[->] (workson.one south) -- ++(0,-0.7cm) -| (workson.two south);
+\draw[->] (workson.one south) -- ++(0,-0.7cm) -| (workson.three south);
+
+
+
+\end{tikzpicture}
+\caption{Decomposition after 3NF}
+\label{fig:diag3}
+\end{figure}
+
+\subsection{Boyce Codd Normal Form}
+Since all functional dependencies are dependent on Superkeys, the relation \underline{is in BCNF.}
+
+\subsection{Verifying Normalization}
+
+\subsubsection{Preservation of Functional Dependencies}
+\begin{itemize}
+\item \textbf{FD1} has been preserved in the \textbf{EMPLOYEE} relation
+\item \textbf{FD2} has been preserved in the \textbf{DEPARTMENT} relation
+\item \textbf{FD3} has been preserved in the \textbf{PROJECT} relation
+\item \textbf{FD4} has been preserved in the \textbf{WORKS\_ON} relation
+\end{itemize}
+$\therefore$ All \textbf{4} functional dependencies \underline{have been preserved} after normalization.
+
+\subsubsection{Lossless Join}
+
+\newpage
+\section{Database Design Using ER Diagram}
+\subsection{ER Diagram From Requirements}
+\vspace{0.1in}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[auto,node distance=1in]
+%\tikzstyle{every pin edge}=[draw]
+
+\node[entity] (course) {\textbf{Course}} [grow=left,level distance=1in,sibling distance=0.85in]
+child[grow=up,level distance=.55in] {node[attribute] {Credits}}
+child {node[attribute] {\underline{CoName}}}
+child {node[attribute] {\underline{CCode}}}
+child {node[attribute] {Level}}
+child {node[attribute] {CDesc}}
+;
+
+\node[relationship] (offers) [right=1in of course] {\textbf{Offers}};
+
+\node[entity] (department) [right=1in of offers]{\textbf{Department}} [grow=up,sibling distance=1in]
+child {node[attribute] {\underline{DCode}}}
+child {node[attribute] {\underline{DName}}}
+child[grow=right,level distance=1.3in] {node[attribute] {DPhone}};
+%child[grow=right,sibling distance=7cm] {node[attribute] {color}}
+
+\node[relationship] (belongs) [below=1in of department] {\textbf{Belongs To}};
+
+\node[entity] (student) [below=1.75in of belongs] {\textbf{Student}} [grow=right,level distance=0.95in,sibling distance=0.9in]
+%child {node[attribute] {DOB}}
+child {node[attribute] (phone)  {Phone}}
+child {node[attribute] (sid) [above=2.2cm of phone] {\underline{SID}}}
+child {node[attribute] (major) [above=2cm of sid] {Major}}
+child {node[attribute] (minor) [above=1cm of major] {Minor}}
+child {node[attribute] (sex) {Sex}}
+child {node[attribute] (address) [above=0.7cm of sex] {Address}}
+child {node[attribute] (degree) [above=1cm of address] {Degree}}
+%child {node[attribute] {DOB}}
+child[grow=down,level distance=2in] {node[attribute] (program) {Program}}
+child {node[multi attribute] (name) [below left=0.8cm of program] {Name} child {node[attribute] (lname) [below left=1cm of name] {LName}} child {node[attribute] [below=0.75cm of name]  {FName}}}
+;
+
+
+\node[relationship] (takes) [left=1in of student] {\textbf{Takes}}[grow=down,level distance=1in]
+child {node[attribute] {Program}};
+
+
+\node[entity] (section) [left=1.16in of takes] {\textbf{Sections}} [grow=down,level distance=1in,sibling distance=0.85in]
+child[grow=left,level distance=1.5in] {node[attribute] (semester) {Semester}}
+child {node[attribute] {CRoom}}
+child {node[attribute] {\underline{SecID}}}
+child {node[attribute] [below=1.4cm of semester] {Year}}
+child {node[attribute] [below=0.5cm of semester] {SecNo}}
+;
+
+
+\node[relationship] (offeredas) [above=1.75in of section] {\textbf{Offered As}};
+
+
+
+%\node[entity,draw=white,fill=white] (title) [above=1.2in of offers] {\Huge \textbf{Assignment 9B }};
+
+%\node[entity,draw=white,fill=white] (title) [above=0.8in of offers] {\Large \textit{Akash Kishore - 18 5001 014}};
+
+
+%Participations and Cardinality Ratios
+
+\path (belongs) edge node {\large \textbf{1}} (department) edge[total] node {\large \textbf{N}} (student);
+
+\path (offers) edge node {\large \textbf{1}} (department) edge[total] node {\large \textbf{N}} (course);
+
+\path (offeredas) edge[total] node {\large \textbf{1}} (course) edge[total] node {\large \textbf{N}} (section);
+
+\path (takes) edge[total] node {\large \textbf{M}} (student) edge[total] node {\large \textbf{N}} (section);
+
+
+
+\end{tikzpicture}
+\caption{ER Diagram}
+\label{fig:diag4}
+\end{figure}
+\subsection{ER Relational Mapping}
+The following was done to convert the ER Diagram (\autoref{fig:diag4}) to the Relational Model.
+\begin{enumerate}
+\item Each entity was made into a relation with all of its given attributes.
+\item To represent the \textbf{Offered As} $(1:N)$ relationship, an attribute is added to the Section relation which references CCode, the primary key of the Course relation.
+\item To represent the \textbf{Offers} $(1:N)$ relationship, an attribute is added to the Course relation which references DCode, the primary key of the Department relation.
+\item To represent the \textbf{Belongs To} $(1:N)$ relationship, an attribute is added to the Student relation which references DCode, the primary key of the Department relation.
+\item To represent the \textbf{Takes} $(M:N)$ relationship, a new relation Takes which contains the grade attribute of the reltionship as well as the primary keys of the participating realtions (SecID,SID) is created.
+\end{enumerate}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[relation/.style={rectangle split, rectangle split parts=#1, rectangle split part align=base, draw, anchor=center, align=center, text height=3mm, text centered}]\hspace*{-0.3cm}
+
+% RELATIONS
+
+\node (departmenttitle) {\textbf{DEPARTMENT}};
+
+\node [relation=3, rectangle split horizontal, rectangle split part fill={lightgray!50}, anchor=north west, below=0.67cm of departmenttitle.west, anchor=west] (department)
+{\underline{DCode}%
+\nodepart{two}   DName
+\nodepart{three} DPhone};
+
+
+\node [below=2.0cm of department.west, anchor=west] (coursetitle) {\textbf{COURSE}};
+
+\node [relation=6, rectangle split horizontal, rectangle split part fill={lightgray!50}, anchor=north west, below=0.67cm of coursetitle.west, anchor=west] (course)
+{\underline{CCode}%
+\nodepart{two} CoName
+\nodepart{three} DCode
+\nodepart{four}  Level 
+\nodepart{five} Credits
+\nodepart{six} CDesc
+};
+
+\node [below=2.0cm of course.west, anchor=west] (sectiontitle) {\textbf{SECTION}};
+
+\node [relation=6, rectangle split horizontal, rectangle split part fill={lightgray!50}, anchor=north west, below=0.67cm of sectiontitle.west, anchor=west] (section)
+{\underline{SecID}%
+\nodepart{two} CRoom
+\nodepart{three} SecNo
+\nodepart{four}  CCode 
+\nodepart{five} Year
+\nodepart{six} Semester
+};
+
+\node [below=2.0cm of section.west, anchor=west] (studenttitle) {\textbf{STUDENT}};
+
+\node [relation=11, rectangle split horizontal, rectangle split part fill={lightgray!50}, below=0.67cm of studenttitle.west, anchor=west] (student)
+{\underline{SID}%
+\nodepart{two} FName
+\nodepart{three} LName
+\nodepart{four}  DCode 
+\nodepart{five} Program
+\nodepart{six} Major
+\nodepart{seven} Minor
+\nodepart{eight} Sex
+\nodepart{nine} DOB
+\nodepart{ten} Address
+\nodepart{eleven} Phone
+};
+
+\node [below=2.0cm of student.west, anchor=west] (takestitle) {\textbf{TAKES}};
+
+\node [relation=3, rectangle split horizontal, rectangle split part fill={lightgray!50}, below=0.67cm of takestitle.west, anchor=west] (takes)
+{\underline{SecID}%
+\nodepart{two} \underline{SID}
+\nodepart{three} Grade
+};
+
+\draw[->] (course.three north) -- ++(0,1.0) -| (department.one south);
+
+\draw[->] (student.four north) |- ($(student.nine north) + (0,1)$) |- ($(course.three north) +(0,1.0)$) -| (department.one south);
+
+\draw[->] (section.four north) -- ++(0,1) -| (course.one south);
+
+\draw[->] (takes.two north) -- ++(0,1) -| (student.one south);
+
+\draw[->] (takes.one south) -- ++(0,-1) -| ($(section.one south) - (1.5,1)$) -| (section.one south);
+
+\end{tikzpicture}
+\caption{Schema Diagram}
+\label{fig:diag5}
+\end{figure}
+
+
+
+\hrule
+\end{document}

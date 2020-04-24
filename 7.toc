@@ -1,0 +1,12 @@
+\contentsline {section}{\numberline {A}Database Design Using Normal Forms}{1}{section.1}
+\contentsline {subsection}{\numberline {A.1}Identifying Primary Key}{1}{subsection.1.1}
+\contentsline {subsection}{\numberline {A.2} 1\textsuperscript {st} Normal Form}{2}{subsection.1.2}
+\contentsline {subsection}{\numberline {A.3}2\textsuperscript {nd} Normal Form}{2}{subsection.1.3}
+\contentsline {subsection}{\numberline {A.4}3\textsuperscript {rd} Normal Form}{2}{subsection.1.4}
+\contentsline {subsection}{\numberline {A.5}Boyce Codd Normal Form}{2}{subsection.1.5}
+\contentsline {subsection}{\numberline {A.6}Verifying Normalization}{3}{subsection.1.6}
+\contentsline {subsubsection}{\numberline {A.6.1}Preservation of Functional Dependencies}{3}{subsubsection.1.6.1}
+\contentsline {subsubsection}{\numberline {A.6.2}Lossless Join}{3}{subsubsection.1.6.2}
+\contentsline {section}{\numberline {B}Database Design Using ER Diagram}{4}{section.2}
+\contentsline {subsection}{\numberline {B.1}ER Diagram From Requirements}{4}{subsection.2.1}
+\contentsline {subsection}{\numberline {B.2}ER Relational Mapping}{5}{subsection.2.2}
