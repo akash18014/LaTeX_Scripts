@@ -6,15 +6,16 @@
 \usetikzlibrary{er,shapes,positioning,calc,arrows.meta}
 \colorlet{lightgray}{gray!30}
 \usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{amsmath,amsthm,amssymb}
+
 \usepackage[pdfusetitle]{hyperref}
-\usepackage{xcolor}
 \hypersetup{
     colorlinks,
     linkcolor={blue!50!black},
     citecolor={red!50!black},
     urlcolor={red!80!black}
 }
-\usepackage{amsmath,amsthm,amssymb}
 \usepackage[all]{hypcap}
 
 \title{\Huge \textbf{UCS1412 Database Lab} \\ \huge \textbf{Assignment 9}}
@@ -282,7 +283,139 @@ Since all functional dependencies are dependent on Superkeys, the relation \unde
 $\therefore$ All \textbf{4} functional dependencies \underline{have been preserved} after normalization.
 
 \subsubsection{Lossless Join}
+\begin{enumerate}
+\item Joining the \textbf{EMPLOYEE} and \textbf{DEPARTMENT} relations.
 
+\begin{table}[H]
+\sffamily
+\scriptsize
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+\rowcolor{lightgray}
+	Name & EmpID & Bdate & Address & Sex & Salary & DNo & DName & MgrID\\
+\hline
+	John B Smith & 123456789 & 1965-01-09 & 731 Fondren, Houston, TX & M & 30000 & 5 & Research & 333445555\\
+\hline
+	Franklin T Wong & 333445555 & 1955-12-08 & 638 Voss, Houston, TX & M & 40000 & 5 & Research & 888665555\\
+\hline
+	Alicia J Zelaya & 999887777 & 1969-01-19 & 3321 Castle, Spring, TX & F & 25000 & 4 & Administration & 987654321\\
+\hline
+	Jennifer S Wallace & 987654321 & 1941-06-20 & 291 Berry, Bellaire, TX & F & 43000 & 4 & Administration & 888665555\\
+\hline
+	Ramesh K Narayan & 666884444 & 1962-09-15 & 975 Fire Oak, Humble, TX & M & 38000 & 5 & Research & 333445555\\
+\hline
+	Joyce A English & 453453453 & 1972-07-31 & 5631 Rice, Houston, TX & F & 25000 & 5 & Research & 333445555 \\
+\hline
+	Ahmad V Jabbar & 987987987 & 1969-03-29 & 980 Dallas, Houston, TX & M & 25000 & 4 & Administration & 987654321\\
+\hline
+	James E Borg & 888665555 & 1937-11-10 & 450 Stone, Houston, TX & M & 55000 & 1 & Headquarters & NULL	\\
+\hline
+\end{tabular}
+\label{tab:tab1}
+\caption{EMPLOYEE and DEPARTMENT Joined}
+\end{table}
+
+\item Joining the \textbf{PROJECT} and \textbf{WORKS\_ON} relations.
+\begin{table}[H]
+\centering
+\sffamily
+\scriptsize
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\rowcolor{lightgray}
+EmpID & PNo & Hrs & Pname & PDNo\\
+\hline
+123456789 &  1 & 32.5 & ProductX & 5\\
+\hline
+123456789 &  2 &  7.5 & ProductY & 5\\
+\hline
+666884444 &  3 & 40.0 & ProductZ & 5\\
+\hline
+453453453 &  1 & 20.0 & ProductX & 5\\
+\hline
+453453453 &  2 & 20.0 & ProductY & 5\\
+\hline
+333445555 &  2 & 10.0 & ProductY & 5\\
+\hline
+333445555 &  3 & 10.0 & ProductZ & 5\\
+\hline
+333445555 & 10 & 10.0 & Computerization & 4\\
+\hline
+333445555 & 20 & 10.0 & Reorganization & 1\\
+\hline
+999887777 & 30 & 30.0 & Newbenefits & 4\\
+\hline
+999887777 & 10 & 10.0 & Computerization & 4\\
+\hline
+987987987 & 10 & 35.0 & Computerization & 4\\
+\hline
+987987987 & 30 &  5.0 & Newbenefits & 4\\
+\hline
+987654321 & 30 & 20.0 & Newbenefits & 4\\
+\hline
+987654321 & 20 & 15.0 & Reorganization & 1\\
+\hline
+888665555 & 20 & NULL & Reorganization & 1\\
+\hline
+\end{tabular}
+\label{tab:tab2}
+\caption{PROJECT and WORKS\_ON Joined}
+\end{table}
+
+\newpage
+\item{Joining the 2 relations in \autoref{tab:tab1} and \autoref{tab:tab2}}
+
+\begin{table}[H]
+\sffamily
+\centering
+\tiny
+
+\hspace*{-0.7cm}\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\rowcolor{lightgray}
+EmpID & PNo & Hrs & Pname & PDNo & Name & Bdate & Address & Sex & Salary & DNo & DName & MgrID\\
+\hline
+123456789 &  1 & 32.5 & ProductX & 5 & John B Smith & 1965-01-09 & 731 Fondren, Houston, TX & M & 30000 & 5 & Research & 333445555\\
+\hline
+123456789 &  2 &  7.5 & ProductY & 5 & John B Smith & 1965-01-09 & 731 Fondren, Houston, TX & M & 30000 & 5 & Research & 333445555\\
+\hline
+666884444 &  3 & 40.0 & ProductZ & 5 & Ramesh K Narayan & 1962-09-15 & 975 Fire Oak, Humble, TX & M & 38000 & 5 & Research & 333445555\\
+\hline
+453453453 &  1 & 20.0 & ProductX & 5 & Joyce A English & 1972-07-31 & 5631 Rice, Houston, TX & F & 25000 & 5 & Research & 333445555 \\
+\hline
+453453453 &  2 & 20.0 & ProductY & 5 & Joyce A English & 1972-07-31 & 5631 Rice, Houston, TX & F & 25000 & 5 & Research & 333445555 \\
+\hline
+333445555 &  2 & 10.0 & ProductY & 5 & Franklin T Wong & 1955-12-08 & 638 Voss, Houston, TX & M & 40000 & 5 & Research & 888665555\\
+\hline
+333445555 &  3 & 10.0 & ProductZ & 5 & Franklin T Wong & 1955-12-08 & 638 Voss, Houston, TX & M & 40000 & 5 & Research & 888665555\\
+\hline
+333445555 & 10 & 10.0 & Computerization & 4 & Franklin T Wong & 1955-12-08 & 638 Voss, Houston, TX & M & 40000 & 5 & Research & 888665555\\
+\hline
+333445555 & 20 & 10.0 & Reorganization & 1 & Franklin T Wong & 1955-12-08 & 638 Voss, Houston, TX & M & 40000 & 5 & Research & 888665555\\
+\hline
+999887777 & 30 & 30.0 & Newbenefits & 4 & Alicia J Zelaya & 1969-01-19 & 3321 Castle, Spring, TX & F & 25000 & 4 & Administration & 987654321\\
+\hline
+999887777 & 10 & 10.0 & Computerization & 4 & Alicia J Zelaya & 1969-01-19 & 3321 Castle, Spring, TX & F & 25000 & 4 & Administration & 987654321\\
+\hline
+987987987 & 10 & 35.0 & Computerization & 4 & Ahmad V Jabbar & 1969-03-29 & 980 Dallas, Houston, TX & M & 25000 & 4 & Administration & 987654321\\
+\hline
+987987987 & 30 &  5.0 & Newbenefits & 4 & Ahmad V Jabbar & 1969-03-29 & 980 Dallas, Houston, TX & M & 25000 & 4 & Administration & 987654321\\
+\hline
+987654321 & 30 & 20.0 & Newbenefits & 4 & Jennifer S Wallace & 1941-06-20 & 291 Berry, Bellaire, TX & F & 43000 & 4 & Administration & 888665555\\
+\hline
+987654321 & 20 & 15.0 & Reorganization & 1 & Jennifer S Wallace & 1941-06-20 & 291 Berry, Bellaire, TX & F & 43000 & 4 & Administration & 888665555\\
+\hline
+888665555 & 20 & NULL & Reorganization & 1 & James E Borg & 1937-11-10 & 450 Stone, Houston, TX & M & 55000 & 1 & Headquarters & NULL\\
+\hline
+
+\end{tabular}
+
+\caption{COMPANY Relation with \textbf{16 tuples}}
+\end{table}
+\end{enumerate}
+
+$\therefore$ The lossless join property has been verified since there are 16 tuples after re-joining the relations.
 \newpage
 \section{Database Design Using ER Diagram}
 \subsection{ER Diagram From Requirements}
@@ -367,10 +500,10 @@ child {node[attribute] [below=0.5cm of semester] {SecNo}}
 The following was done to convert the ER Diagram (\autoref{fig:diag4}) to the Relational Model.
 \begin{enumerate}
 \item Each entity was made into a relation with all of its given attributes.
-\item To represent the \textbf{Offered As} $(1:N)$ relationship, an attribute is added to the Section relation which references CCode, the primary key of the Course relation.
-\item To represent the \textbf{Offers} $(1:N)$ relationship, an attribute is added to the Course relation which references DCode, the primary key of the Department relation.
-\item To represent the \textbf{Belongs To} $(1:N)$ relationship, an attribute is added to the Student relation which references DCode, the primary key of the Department relation.
-\item To represent the \textbf{Takes} $(M:N)$ relationship, a new relation Takes which contains the grade attribute of the reltionship as well as the primary keys of the participating realtions (SecID,SID) is created.
+\item To represent the \textbf{Offered As} $(1:N)$ relationship, an \textbf{attribute is added} to the Section relation which references CCode, the primary key of the Course relation.
+\item To represent the \textbf{Offers} $(1:N)$ relationship, an \textbf{attribute is added} to the Course relation which references DCode, the primary key of the Department relation.
+\item To represent the \textbf{Belongs To} $(1:N)$ relationship, an \textbf{attribute is added} to the Student relation which references DCode, the primary key of the Department relation.
+\item To represent the \textbf{Takes} $(M:N)$ relationship, a \textbf{new relation Takes} which contains the grade attribute of the reltionship as well as the primary keys of the participating realtions (SecID,SID) is created.
 \end{enumerate}
 
 \begin{figure}[H]

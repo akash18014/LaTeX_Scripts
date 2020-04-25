@@ -1,0 +1,51 @@
+\hline
+EmpID & PNo & Hrs & Pname & PDNo\\
+\hline
+123456789 &  1 & 32.5 & ProductX & 5\\
+\hline
+123456789 &  2 &  7.5 & ProductY & 5\\
+\hline
+666884444 &  3 & 40.0 & ProductZ & 5\\
+\hline
+453453453 &  1 & 20.0 & ProductX & 5\\
+\hline
+453453453 &  2 & 20.0 & ProductY & 5\\
+\hline
+333445555 &  2 & 10.0 & ProductY & 5\\
+\hline
+333445555 &  3 & 10.0 & ProductZ & 5\\
+\hline
+333445555 & 10 & 10.0 & Computerization & 4\\
+\hline
+333445555 & 20 & 10.0 & Reorganization & 1\\
+\hline
+999887777 & 30 & 30.0 & Newbenefits & 4\\
+\hline
+999887777 & 10 & 10.0 & Computerization & 4\\
+\hline
+987987987 & 10 & 35.0 & Computerization & 4\\
+\hline
+987987987 & 30 &  5.0 & Newbenefits & 4\\
+\hline
+987654321 & 30 & 20.0 & Newbenefits & 4\\
+\hline
+987654321 & 20 & 15.0 & Reorganization & 1\\
+\hline
+888665555 & 20 & NULL & Reorganization & 1\\
+\hline
+
+
+Plocation
+Dnum
+DEPENDENT
+Dependent_name
+Sex
+Bdate
+Relationship
+Alice F 1986-04-05 Daughter
+333445555 Theodore M 1983-10-25 Son
+333445555 Joy F 1958-05-03 Spouse
+5.0 987654321 Abner M 1942-02-28 Spouse
+30 20.0 123456789 Michael M 1988-01-04 Son
+20 15.0 123456789 Alice F 1988-12-30 Daughter
+20 NULL
