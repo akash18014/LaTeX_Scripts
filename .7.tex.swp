@@ -12,9 +12,9 @@
 \usepackage[pdfusetitle]{hyperref}
 \hypersetup{
     colorlinks,
-    linkcolor={blue!30!black},
-    citecolor={red!30!black},
-    urlcolor={red!30!black}
+    linkcolor={blue!20!black},
+    citecolor={red!20!black},
+    urlcolor={red!20!black}
 }
 \usepackage[all]{hypcap}
 
@@ -504,13 +504,13 @@ child {node[attribute] [above=1cm of semester] {Instructor}}
 \label{fig:diag4}
 \end{figure}
 \subsection{ER Relational Mapping}
-The following was done to convert the ER Diagram (\autoref{fig:diag4}) to the Relational Model.
+The following was done to convert the \hyperref[fig:diag4]{ER Diagram} to the Relational Model.
 \begin{enumerate}
 \item Each entity was made into a relation with all of its given attributes.
 \item To represent the \textbf{Offered As} $(1:N)$ relationship, an \textbf{attribute is added} to the Section relation which references CCode, the primary key of the Course relation.
 \item To represent the \textbf{Offers} $(1:N)$ relationship, an \textbf{attribute is added} to the Course relation which references DCode, the primary key of the Department relation.
 \item To represent the \textbf{Belongs To} $(1:N)$ relationship, an \textbf{attribute is added} to the Student relation which references DCode, the primary key of the Department relation.
-\item To represent the \textbf{Takes} $(M:N)$ relationship, a \textbf{new relation Takes} which contains the grade attribute of the reltionship as well as the primary keys of the participating realtions (SecID,SID) is created.
+\item To represent the \textbf{Takes} $(M:N)$ relationship, a \textbf{new relation TAKES} which contains the grade attribute of the reltionship as well as the primary keys of the participating realtions (SecID,SID) is created.
 \end{enumerate}
 
 \begin{figure}[H]
