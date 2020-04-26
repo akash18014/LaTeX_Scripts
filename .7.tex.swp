@@ -460,7 +460,7 @@ child {node[attribute] (address) [above=0.7cm of sex] {Address}}
 child {node[attribute] (degree) [above=1cm of address] {Degree}}
 %child {node[attribute] {DOB}}
 child[grow=down,level distance=2in] {node[attribute] (program) {Program}}
-child {node[multi attribute] (name) [below left=0.8cm of program] {Name} child {node[attribute] (lname) [below left=1cm of name] {LName}} child {node[attribute] [below=0.75cm of name]  {FName}}}
+child {node[attribute] (name) [below left=0.8cm of program] {Name} child {node[attribute] (lname) [below left=1cm of name] {LName}} child {node[attribute] [below=0.75cm of name]  {FName}}}
 ;
 
 
