@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.4.22)  25 APR 2020 15:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.4.22)  26 APR 2020 12:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -826,39 +826,34 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 278.
-[2]
-Overfull \hbox (5.52463pt too wide) in paragraph at lines 292--315
-[][]
- []
-
-[3]
-Overfull \hbox (27.36403pt too wide) in paragraph at lines 374--413
+[2] [3]
+Overfull \hbox (13.71419pt too wide) in paragraph at lines 379--418
  []| [] 
  []
 
 [4]
-Overfull \hbox (35.0257pt too wide) in paragraph at lines 495--496
+Overfull \hbox (49.3934pt too wide) in paragraph at lines 502--503
  [][] 
  []
 
 [5] [6]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 587.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 587.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 594.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 594.
  (./7.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 587.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 587.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 594.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 594.
 Package rerunfilecheck Info: File `7.out' has not changed.
 (rerunfilecheck)             Checksum: 4EDF6196489227B01D9BBAF4A272B1FC;864.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 587.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 594.
  ) 
 Here is how much of TeX's memory you used:
- 19326 strings out of 494923
- 383364 string characters out of 6180742
- 496945 words of memory out of 5000000
- 22260 multiletter control sequences out of 15000+600000
+ 19338 strings out of 494923
+ 383568 string characters out of 6180742
+ 497219 words of memory out of 5000000
+ 22272 multiletter control sequences out of 15000+600000
  18233 words of font info for 66 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 55i,12n,71p,403b,1251s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,13n,71p,403b,1251s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/tex
@@ -873,10 +868,10 @@ m/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pf
 b>
-Output written on 7.pdf (6 pages, 185564 bytes).
+Output written on 7.pdf (6 pages, 186196 bytes).
 PDF statistics:
- 167 PDF objects out of 1000 (max. 8388607)
- 143 compressed objects within 2 object streams
+ 169 PDF objects out of 1000 (max. 8388607)
+ 145 compressed objects within 2 object streams
  35 named destinations out of 1000 (max. 500000)
  109 words of extra memory for PDF output out of 10000 (max. 10000000)
 
